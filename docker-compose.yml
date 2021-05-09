@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      context: ./nginx
+    ports:
+      - "3050:80"
+  api:
+    build:
+      context: ./server
+    environment:
+      - PORT=5000
+  client:
+    depends_on:
+      - api
+    build:
+      context: ./client
